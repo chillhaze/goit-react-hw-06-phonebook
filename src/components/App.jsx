@@ -7,6 +7,7 @@ import { IoMdContacts } from 'react-icons/io';
 import { ContactForm } from './ContactForm';
 import { Filter } from './Filter';
 import { ContactList } from './ContactList';
+import { TestingRedux } from './TestingRedux';
 
 export const App = () => {
   const [contacts, setContact] = useState(() => {
@@ -68,6 +69,7 @@ export const App = () => {
         contacts={filteredContacts}
         onDeleteBtnPush={removeContactHandler}
       />
+      <TestingRedux />
     </div>
   );
 };
