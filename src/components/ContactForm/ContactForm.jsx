@@ -4,9 +4,15 @@ import { v4 as uuidv4 } from 'uuid';
 
 import css from './ContactForm.module.css';
 
-export const ContactForm = ({ contacts, onSubmit }) => {
+import { connect } from 'react-redux';
+import { addContact } from '../../redux/contacts/contacts-actions';
+
+const ContactForm = ({ addContact }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
+  // console.log('ContactForm contacts: ', contacts);
+  // console.log('ContactForm onSubmit: ', addContact);
 
   const nameInputId = uuidv4();
   const numberInputId = uuidv4();
@@ -28,10 +34,7 @@ export const ContactForm = ({ contacts, onSubmit }) => {
 
   const handleOnSubmit = e => {
     e.preventDefault();
-
-    contacts = { name: name, number: number };
-
-    onSubmit(contacts);
+    addContact(name, number);
     formReset();
   };
 
@@ -87,3 +90,11 @@ ContactForm.propTypes = {
   contacts: PropTypes.array,
   onSubmit: PropTypes.func,
 };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addContact: (name, number) => dispatch(addContact(name, number)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(ContactForm);
